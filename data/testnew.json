@@ -1,0 +1,16 @@
+{
+"rockets": [
+{
+"name": "test",
+"diameter": 0.0254,
+"length": 0.0254,
+"MMT": 18
+}
+],
+"electronics": [
+
+],
+"flights": [
+
+]
+}

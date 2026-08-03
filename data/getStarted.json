@@ -1,0 +1,56 @@
+{
+  "Pages": [
+    {
+      "Name": "Intro",
+      "Text": "OpenLog allows users to create electronics, rockets, and flights that all comprise an entire log. When starting out in OpenLog it is best to start out by configuring the preferences to your liking, before creating a new log file in the \"File\" dropdown of the menubar. Then it is best to add all your rockets, and electronics, before finally entering flights. When you are making changes, OpenLog Automatically saves everything to the referenced log file."
+    },
+    {
+      "Name": "Preferences",
+      "Text": "The preferences window is used to configure everything in OpenLog, both functionally and visually. It is best to set these settings before entering data, as they are the same units used when creating items in OpenLog. The units can be changed after the fact, and will update what is displayed dynamically, even in the data viewer."
+    },
+    {
+      "Name": "Create A Rocket",
+      "Text": "There are three ways to create a rocket. The first is to go to the \"Rockets\" rab and click the \"Create Rocket\" button, the second is to press Ctrl-Alt-C while on the \"Rockets\", and the third is to press \"Rocket\" in the \"Create\" dropdown in the menubar. Once the window is opened you need to input the rockets name, diameter, length, and motor mount diameter (MMT) and press add or the enter key. \n\nNote: you can input custom MMT diameters by typing in the diameter in millimeters, unfortunately this box doesn't support inputs in other units."
+    },
+    {
+      "Name": "Create A Electronic",
+    "Text": "There are three ways to create a rocket. The first is to go to the \"Rockets\" rab and click the \"Create Electronic\" button, the second is to press Ctrl-Alt-C while on the \"Electronics\", and the third is to press \"Electronic\" in the \"Create\" dropdown in the menubar. Once the window is opened you need to input the electronic's name, manufacturer, and if the readings for altitude, velocity, and acceleration are specific and press create or the enter key. Data entered for flights that use electronics that are not specific for certain values display a \"~\" before the number in the flight summary. The specificity of different readings can be filtered for in the statistics page allowing for \"Confirmed Only\" data to be used."
+    },
+    {
+      "Name": "Create Flight / Submit a Log",
+      "Text": "There are three ways to create a rocket. The first is to go to the \"Log\" rab and click the \"Create Log\" button, the second is to press Ctrl-Alt-C while on the \"Log\", and the third is to press \"log\" in the \"Create\" dropdown in the menubar. Once the window is opened you need to select the rocket, date, motor, electronics, and deploy mode. Then you have the option to upload a flight data file, which will automatically fill in the data that it can read, and allows you to view the data graphs in OpenLog. Currently this feature only works with Eggtimer, OpenLog Flight Data, and Fluctus Black Box files. Alternatively, you can just type in the values if there is no data file, or the file type is not supported. If you would like you can also enter a note on the right text field that will be stored with the flight to save any notable events, or causes of failure. Finally you select if it was a success or a failure and then press Log or the enter key. \n\nNote: The motor combobox works as a search bar, so instead of scrolling through the entire list, you can type in the motor designation and it will filter out all the other motors. Furthermore, if there is only one motor that matches the search term, you can create the log and it will automatically select the matching motor."
+    },
+    {
+      "Name": "Search, Sort, and Filter Flights",
+      "Text": "The search bar at the top of the log tab can be used to search all the added flights. This search is deep, which means it searches all the details of the flight to see if it matches, even notes. To sort and filter the flights in the log tab you can click the \"Show Sort and Filter\" button. This will open a menu that allows you to filter your flights based on multiple criteria. You can change the sort order to chronological (in order of date), altitude, velocity, and acceleration. You can either have it set to \"Normal\" which sorts oldest to newest, and largest to smallest, or \"Reverse\" which goes newest to oldest, and smallest to largest. To filter the flights by electronics the \"Uses Electronics\" dropdown can be changed to yes, no, and any of the electronics you have created. This will either filter flights by if they do or do not contain electronics, or if they use a specific electronic. Next you can select if you would like to only see successes, with the \"Successes Only\" dropdown. Finally you can type in numbers into the minimum and maximum text boxes for all the values listed, except motor class which takes letter codes (A, B, C, ...). To apply the filters just press the \"Apply\" button and it will collapse the filter menu and filter all the flights. \n\nNote: the search bar will only search flights that match the filters."
+    },
+    {
+      "Name": "Update / Edit a Rocket",
+      "Text": "To update or edit a rocket you can do one of three things. First is to select a rocket and click the \"Update\" button below the details. Next you can press Ctrl-Alt-U while on the Rockets tab (if a rocket is selected it will automatically choose to edit that one). Thirdly, you can press \"Update Rocket\" in the \"Update\" cascade of the \"Edit\" dropdown in the menubar. Once the menu is opened, the rocket being edited can either be selected or changed in the dropdown. When this is down the previously inputted information will be filled into the boxes for easy reference. Once the values are updated, just press update or the enter key, and everything will be updated in OpenLog."
+    },
+    {
+      "Name": "Update / Edit an Electronic",
+      "Text": "To update or edit an electronic you can do one of three things. First is to select an electronic and click the \"Update\" button below the details. Next you can press Ctrl-Alt-U while on the Electronics tab (if an electronic is selected it will automatically choose to edit that one). Thirdly, you can press \"Update Electronic\" in the \"Update\" cascade of the \"Edit\" dropdown in the menubar. Once the menu is opened, the electronic being edited can either be selected or changed in the dropdown. When this is down the previously inputted information will be filled into the boxes for easy reference. Once the values are updated, just press update  or the enter key, and everything will be updated in OpenLog."
+    },
+    {
+      "Name": "Update / Edit a Flight",
+      "Text": "To update or edit a flight you can do one of three things. First is to select a flight and click the \"Update\" button below the details. Next you can press Ctrl-Alt-U while on the Log tab (if a flight is selected it will automatically choose to edit that one). Thirdly, you can press \"Update Log\" in the \"Update\" cascade of the \"Edit\" dropdown in the menubar. Once the menu is opened, the flight being edited can either be selected or changed in the dropdown. When this is down the previously inputted information will be filled into the boxes for easy reference. In this window you can upload a flight data file, doing this will fill in the boxes that the electronics are specific for, or ones that are blank. Once the values are updated, just press update or the enter key, and everything will be updated in OpenLog."
+    },
+    {
+      "Name": "Add/Remove Flight Data File",
+      "Text": "To add or remove a flight data file from a flight, select a flight and press the respective action in the \"Flight Data File\" cascade of the \"Edit\" dropdown. If you are adding a flight data file it will open the file viewer to select a file. Currently only Eggtimer, OpenLog Flight Data, and Fluctus Black Box files are supported. This will override the previously inputted data in the fields that the electronics are specific for."
+    },
+    {
+      "Name": "View Flight Data",
+      "Text": "If there is an uploaded flight data file for a flight a \"View Flight Data\" button will be between the \"Update\" and \"Delete\" when it is selected. To open the data viewer window you can either press the View Flight Data button, or press \"Data Window\" in the \"View\" dropdown in the menubar. Once the window is opened you can change the data that is shown with the dropdown above. To navigate the graph you can pan with the cross shaped arrow tool, zoom to a rectangle by clicking and dragging with the magnifying glass tool, change the plot settings with the three sliders tool, and save with the floppy disk (save) tool. You can also undo and redo movements with the left and right arrows, and go back to the original view with the home tool."
+    },
+    {
+      "Name": "View Flights",
+      "Text": "To view what flights a rocket, electronic, or motor is used for you can select it and then press Ctrl-F,  click \"View Flights\" in the \"View\" dropdown in the menubar, or just double click the desired rocket or electronic. This opens a window with a list of the flights that use the selected item."
+    },
+    {
+      "Name": "Creating an OpenLog Flight Data file",
+      "Text": "If there is a flight data file that you would like to import, but it is not supported, you can convert it to an OpenLog Flight Data file. To do this, just create a .csv file with four columns: Time, Altitude, Velocity, "
+    }
+  ]
+}

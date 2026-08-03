@@ -1,0 +1,81 @@
+{
+"Descriptions": [
+
+  {
+    "Name": "Overview",
+    "Description": "This help menu includes the basics of all the commands and what they do in OpenLog"
+  },
+  {
+    "Name": "Keyboard Shortcuts",
+    "Description": "Ctrl-Alt-C: Create\nCtrl-Alt-U: Update\nCtrl-D: Open Data Viewer\nCtrl-F: Get Flights"
+  },
+  {
+    "Name": "New",
+    "Description": "Creates a new log file and opens it in the window."
+  },
+  {
+    "Name": "Open",
+    "Description": "Opens a .json log file in the current window."
+  },
+  {
+    "Name": "Save As",
+    "Description": "Saves the current log file with a new filename and opens it in the current window. Leaves the old log file intact."
+  },
+  {
+    "Name": "Clean Flight Data Folder",
+    "Description": "Cleans out old non-used flight data files out of the internal folder. Be careful, it can, and most likely will, break other log files that reference flight data files"
+  },
+  {
+    "Name": "Export",
+    "Description": "Exports the current log file as either a .json file, that OpenLog uses to save logs, or as a .csv that can be opened in spreadsheet software."
+  },
+  {
+    "Name": "Import",
+    "Description": "Imports a .json log file into the current log file."
+  },
+  {
+    "Name": "Import Motor",
+    "Description": "Can be used to import a .ENG (RASP) or .RSE (RockSim) thrust curve file into OpenLog."
+  },
+  {
+    "Name": "Update Log",
+    "Description": "Opens a popup window that can be used to change the details of the selected flight, or a flight selected from the dropdown within the popup."
+  },
+  {
+    "Name": "Update Rocket",
+    "Description": "Opens a popup window that can be used to change the details of the selected rocket, or a rocket selected from the dropdown within the popup."
+  },
+  {
+    "Name": "Update Electronic",
+    "Description": "Opens a popup window that can be used to change the details of the selected Electronic, or a Electronic selected from the dropdown within the popup."
+  },
+  {
+    "Name": "Add Flight Data File",
+    "Description": "Adds a flight data file to the selected flight. Currently only supports Eggtimer files (only tested on Quasar files), OpenLog Flight Data, and Fluctus Black Box files."
+  },
+  {
+    "Name": "Remove Flight Data File",
+    "Description": "Removes a flight data file from the currently selected flight."
+  },
+  {
+    "Name": "Copy",
+    "Description": "Copies the currently selected flight, rocket, or electronic."
+  },
+  {
+    "Name": "Paste",
+    "Description": "Pastes the copied item into the log. When pasting a flight it also pastes the requisite rocket and electronic to the log if necessary."
+  },
+  {
+    "Name": "Preferences",
+    "Description": "The preferences allow OpenLog to be adapted to what each person wants, and are saved between sessions."
+  },
+  {
+    "Name": "Data Window",
+    "Description": "Allows the analysis of flight profiles directly in OpenLog without having to use other software."
+  },
+  {
+    "Name": "View Flights",
+    "Description": "Shows a list of flights that use a selected rocket or motor."
+  }
+]
+}

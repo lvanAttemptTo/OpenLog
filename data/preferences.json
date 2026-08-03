@@ -1,0 +1,11 @@
+{
+"theme": "Dark",
+"altitudeUnit": "m",
+"velocityUnit": "ft/s",
+"accelerationUnit": "G's",
+"rocketDimensionUnit": "in",
+"motorLengthUnit": "in",
+"motorMassUnit": "lbs",
+"thrustUnit": "N",
+"logFile": "C:/Users/lukev/PycharmProjects/OpenLog/data/log.olg"
+}

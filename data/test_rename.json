@@ -1,0 +1,60 @@
+{
+"rockets": [
+{
+"name": "Fade to Black",
+"diameter": 0.06604,
+"length": 1.2191999999999998,
+"MMT": 54
+}
+],
+"electronics": [
+{
+"name": "Fluctus",
+"manufacturer": "Scilicdyne",
+"altSpecific": true,
+"veloSpecific": true,
+"accelSpecific": true
+}
+],
+"flights": [
+{
+"motor": "K540M",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "DUAL",
+"date": "06/26/2026",
+"FDFilename": "",
+"alt": 3657.6444769568398,
+"velo": 457.20555961960497,
+"accel": 274.68,
+"success": false,
+"notes": "RIP :(. Came in ballistic, Fluctus was acting fritzing out and seems to managed to disarm and not enter flight mode.\n"
+},
+{
+"motor": "I600R",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "DUAL",
+"date": "07/03/2025",
+"FDFilename": "data/flightData/5.csv",
+"alt": 1775,
+"velo": 335.7930992440868,
+"accel": 0,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "D15",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "SINGLE",
+"date": "07/31/2026",
+"FDFilename": "data/flightData/3.fbb",
+"alt": 2045,
+"velo": 0.30480370641307,
+"accel": 241.32600000000002,
+"success": true,
+"notes": "\n"
+}
+]
+}

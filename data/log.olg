@@ -1,0 +1,305 @@
+{
+"rockets": [
+{
+"name": "Athena",
+"diameter": 0.07619999999999999,
+"length": 1.397,
+"MMT": 29,
+"Picture": "data/rocketPictures/4.png"
+},
+{
+"name": "Fade to Black",
+"diameter": 0.06604,
+"length": 1.2191999999999998,
+"MMT": 54,
+"Picture": ""
+},
+{
+"name": "Go Blue or Go Home",
+"diameter": 0.07619999999999999,
+"length": 2.0955,
+"MMT": 54,
+"Picture": ""
+},
+{
+"name": "Goldimachs",
+"diameter": 0.05334,
+"length": 1.1683999999999999,
+"MMT": 38,
+"Picture": ""
+},
+{
+"name": "Purple People Eater",
+"diameter": 0.04064,
+"length": 0.78232,
+"MMT": 29,
+"Picture": ""
+},
+{
+"name": "Test Tube",
+"diameter": 0.038099999999999995,
+"length": 0.6604,
+"MMT": 29,
+"Picture": ""
+},
+{
+"name": "Test Tube Mark 2",
+"diameter": 0.038099999999999995,
+"length": 0.67564,
+"MMT": 29,
+"Picture": ""
+}
+],
+"electronics": [
+{
+"name": "Quasar",
+"manufacturer": "Eggtimer",
+"altSpecific": true,
+"veloSpecific": false,
+"accelSpecific": false
+},
+{
+"name": "Fluctus",
+"manufacturer": "Scilicdyne",
+"altSpecific": true,
+"veloSpecific": true,
+"accelSpecific": true
+}
+],
+"flights": [
+{
+"motor": "H115DM",
+"rocket": "Athena",
+"electronics": " None",
+"deployMode": "MOTOR",
+"date": "04/27/2024",
+"FDFilename": "",
+"alt": 545.2938307729821,
+"velo": 117.04462326261887,
+"accel": 88.29,
+"success": true,
+"notes": "M1 Cert flight\n"
+},
+{
+"motor": "J270W",
+"rocket": "Goldimachs",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "03/28/2026",
+"FDFilename": "data/flightData/0.csv",
+"alt": 2191,
+"velo": 307.85174347720067,
+"accel": 245.25,
+"success": false,
+"notes": "Main charge too small (1.5g)\n"
+},
+{
+"motor": "H550ST",
+"rocket": "Go Blue or Go Home",
+"electronics": " None",
+"deployMode": "MOTOR",
+"date": "06/20/2024",
+"FDFilename": "",
+"alt": 345.3425993660083,
+"velo": 83.82101926359424,
+"accel": 166.77,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "I500T",
+"rocket": "Go Blue or Go Home",
+"electronics": " None",
+"deployMode": "MOTOR",
+"date": "06/21/2024",
+"FDFilename": "",
+"alt": 975.3718605218239,
+"velo": 150.87783467446963,
+"accel": 137.34,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "H182R",
+"rocket": "Purple People Eater",
+"electronics": " None",
+"deployMode": "MOTOR",
+"date": "06/22/2024",
+"FDFilename": "",
+"alt": 1706.900755913192,
+"velo": 339.2465252377469,
+"accel": 353.16,
+"success": false,
+"notes": "Lost\n"
+},
+{
+"motor": "H550ST",
+"rocket": "Goldimachs",
+"electronics": "Eggtimer Quasar",
+"deployMode": "SINGLE",
+"date": "09/14/2024",
+"FDFilename": "data/flightData/1.csv",
+"alt": 964,
+"velo": 179,
+"accel": 362.97,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "F67C",
+"rocket": "Test Tube",
+"electronics": " None",
+"deployMode": "MOTOR",
+"date": "04/12/2025",
+"FDFilename": "",
+"alt": 716.2887100707144,
+"velo": 155.1450865642526,
+"accel": 137.34,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "H550ST",
+"rocket": "Goldimachs",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "04/12/2025",
+"FDFilename": "data/flightData/2.csv",
+"alt": 903,
+"velo": 165,
+"accel": 362.97,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "J425R",
+"rocket": "Goldimachs",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "04/13/2025",
+"FDFilename": "data/flightData/3.csv",
+"alt": 2077,
+"velo": 319.43428432089735,
+"accel": 215.82000000000002,
+"success": false,
+"notes": "Main charge too small (1.25g)\n\n"
+},
+{
+"motor": "K400C",
+"rocket": "Fade to Black",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "06/20/2025",
+"FDFilename": "data/flightData/4.csv",
+"alt": 3540,
+"velo": 402.3,
+"accel": 196.20000000000002,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "J450DM",
+"rocket": "Go Blue or Go Home",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "08/30/2025",
+"FDFilename": "data/flightData/5.csv",
+"alt": 1512,
+"velo": 220.67788344306265,
+"accel": 117.72,
+"success": false,
+"notes": "Main Charge too small, seperated, but main was still in booster.\n"
+},
+{
+"motor": "I600R",
+"rocket": "Goldimachs",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "08/30/2025",
+"FDFilename": "data/flightData/6.csv",
+"alt": 1775,
+"velo": 335.28407705437695,
+"accel": 392.40000000000003,
+"success": true,
+"notes": "\n"
+},
+{
+"motor": "F67C",
+"rocket": "Test Tube Mark 2",
+"electronics": " None",
+"deployMode": "MOTOR",
+"date": "08/31/2025",
+"FDFilename": "",
+"alt": 24.384296513045598,
+"velo": 6.0960741282613995,
+"accel": 29.43,
+"success": false,
+"notes": "Motor chuffed, didn't get up to pressure and weakly pushed it off the rail. This caused it to flip and skywrite.\n"
+},
+{
+"motor": "L1000W",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "DUAL",
+"date": "10/18/2025",
+"FDFilename": "data/flightData/0.fbb",
+"alt": 5454,
+"velo": 643,
+"accel": 404.9,
+"success": false,
+"notes": "Drogue charge too large with the long motor. Pulled hard enough to seperate main nosecone shear pins. Saw this coming but no way to ground test it safely with the larger motor.\n"
+},
+{
+"motor": "J270W",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "DUAL",
+"date": "04/25/2026",
+"FDFilename": "data/flightData/1.fbb",
+"alt": 2045,
+"velo": 268,
+"accel": 241.5,
+"success": true,
+"notes": "L2 Cert flight and L2 to L3 flight # 1, witnessed by Jim Wilkerson\n"
+},
+{
+"motor": "K535W",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "DUAL",
+"date": "04/25/2026",
+"FDFilename": "data/flightData/2.fbb",
+"alt": 3868,
+"velo": 445,
+"accel": 262.0,
+"success": true,
+"notes": "Launched by accident, had spotty telemetry.\nRecovered after getting random packets.\nL2 to L3 flight #2 witness: Erik Mckee\n"
+},
+{
+"motor": "J250SK",
+"rocket": "Fade to Black",
+"electronics": "Eggtimer Quasar",
+"deployMode": "DUAL",
+"date": "04/25/2026",
+"FDFilename": "data/flightData/7.csv",
+"alt": 2136,
+"velo": 247.50060960741283,
+"accel": 117.72,
+"success": true,
+"notes": "L2 to L3 flight #3 witnessed by Erik Mckee\n"
+},
+{
+"motor": "K540M",
+"rocket": "Fade to Black",
+"electronics": "Scilicdyne Fluctus",
+"deployMode": "DUAL",
+"date": "06/26/2026",
+"FDFilename": "",
+"alt": 3901.4874420872957,
+"velo": 487.68593026091196,
+"accel": 294.3,
+"success": false,
+"notes": "RIP :(. Came in ballistic, Fluctus was acting fritzing out and seems to managed to disarm and not enter flight mode.\n\n\n\n\n\n"
+}
+]
+}

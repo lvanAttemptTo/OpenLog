@@ -1,0 +1,70 @@
+{
+"name": "F67C",
+"propType": "C",
+"curveFile": "data/motors/AeroTech_F67C.eng"
+},
+{
+"name": "H115DM",
+"propType": "DM",
+"curveFile": "data/motors/AeroTech_HP-H115DM.eng"
+},
+{
+"name": "H182R",
+"propType": "R",
+"curveFile": "data/motors/AeroTech_HP-H182R.eng"
+},
+{
+"name": "J270W",
+"propType": "W",
+"curveFile": "data/motors/AeroTech_HP-J270W.eng"
+},
+{
+"name": "J425R",
+"propType": "R",
+"curveFile": "data/motors/AeroTech_HP-J425R.eng"
+},
+{
+"name": "L1000W",
+"propType": "W",
+"curveFile": "data/motors/AeroTech_HP-L1000W.eng"
+},
+{
+"name": "I600R",
+"propType": "R",
+"curveFile": "data/motors/AeroTech_I600R.eng"
+},
+{
+"name": "J450DM",
+"propType": "DM",
+"curveFile": "data/motors/AeroTech_J450DM.eng"
+},
+{
+"name": "K400C",
+"propType": "C",
+"curveFile": "data/motors/AeroTech_K400C.eng"
+},
+{
+"name": "J250SK",
+"propType": "SK",
+"curveFile": "data/motors/Cesaroni_683J250-15A.eng"
+},
+{
+"name": "H550ST",
+"propType": "ST",
+"curveFile": "data/motors/AeroTech_HP-H550ST.rse"
+},
+{
+"name": "I500T",
+"propType": "T",
+"curveFile": "data/motors/AeroTech_HP-I500T.rse"
+},
+{
+"name": "K535W",
+"propType": "W",
+"curveFile": "data/motors/AeroTech_HP-K535W.rse"
+},
+{
+"name": "K540M",
+"propType": "M",
+"curveFile": "data/motors/K540M.rse"
+},
