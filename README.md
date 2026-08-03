@@ -1,2 +1,2 @@
 # OpenLog
-OpenLog is a logging app for rocketry, and allows for free, easy, and accurate logging of flights. OpenLog is currently in Beta and is regularly receiving updates with new features and bug fixes.
+OpenLog is a logging app for rocketry, and allows for free, easy, and accurate logging of flights. OpenLog is currently in Beta and is regularly receiving updates with new features and bug fixes. As of now, the documentation on how to use OpenLog is within the program in the Help menu. If you find any bugs, or need support, make sure to submit them via the "Contact Support" and the "Report Bug" actions in the Help menu. Doing this insures a clear record is stored, and can help with solving the bug to prevent future issues.
