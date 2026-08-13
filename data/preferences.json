@@ -1,7 +1,7 @@
 {
 "theme": "Dark",
-"altitudeUnit": "m",
-"velocityUnit": "ft/s",
+"altitudeUnit": "miles",
+"velocityUnit": "mph",
 "accelerationUnit": "G's",
 "rocketDimensionUnit": "in",
 "motorLengthUnit": "in",

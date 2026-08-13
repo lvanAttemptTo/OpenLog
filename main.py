@@ -1,4 +1,4 @@
-version = "0.23"
+version = "0.26"
 
 """
 Special Note:
@@ -16,17 +16,10 @@ Refactoring:
 
 Feature list:
 
-    Add a photo folder cleaning function.
-
-   Add using arrow keys to go between input fields
-
     Add manufacturer, classification, diameter, ect filters to motors tab.
     Maybe through a filter object that stores filter inputs and opens a popup. (can do same thing for log filters)
 
     add time
-
-    improve flight data window
-        Display multiple graphs at once (With separate axis)
 
 
 Major features !!!:
@@ -88,6 +81,38 @@ class DeployMode(Enum):
     SINGLE = 2
     DUAL = 3
 
+class CheckList(Frame):
+    def __init__(self, master, command=None):
+        Frame.__init__(self, master)
+        self.boxes = []
+        self.states = []
+        self.command = command
+
+    def addBox(self, name):
+        var = IntVar()
+        self.boxes.append(Checkbutton(self, text=name, selectcolor="black", variable=var))
+        if (self.command != None):
+            self.boxes[-1]["command"] = self.command
+        self.states.append(var)
+
+    def addBoxes(self, names):
+        for name in names:
+            self.addBox(name)
+
+    def pack(self, expand=TRUE, fill=BOTH, side=TOP):
+        for i in range(len(self.boxes)):
+            self.boxes[i].grid(row = i, column = 1)
+
+        Frame.pack(self, expand=expand, fill=fill, side=side)
+
+    def getChecked(self):
+        checked = []
+        for i in range(len(self.boxes)):
+            if (self.states[i].get() == 1):
+                checked.append(self.boxes[i]["text"])
+
+        return(checked)
+
 class Popup(Toplevel):
     def __init__(self, master, title = "Popup", disableEscape = False):
         Toplevel.__init__(self, master)
@@ -95,6 +120,84 @@ class Popup(Toplevel):
         self.title(title)
         if (not disableEscape):
             self.bind("<Escape>", lambda event: self.destroy())
+
+class InputFrame(Frame):
+    def __init__(self, master):
+        Frame.__init__(self, master)
+        popup = master
+        while (not (isinstance(popup, Popup) or isinstance(popup, Toplevel))):
+            popup = popup.master
+        popup.bind("<Down>", self.moveDown)
+        popup.bind("<Right>", self.moveDown)
+        popup.bind("<Up>", self.moveUp)
+        popup.bind("<Left>", self.moveUp)
+        self.inputs = []
+        self.labels = []
+
+    def addInput(self, entry, label, swap=False):
+        self.inputs.append(entry)
+        if (isinstance(label, str)):
+            self.labels.append(Label(self, text=label))
+        elif (isinstance(label, Label)):
+            self.labels.append(label)
+
+        self.swap = swap
+
+    def pack(self, expand=TRUE, fill=BOTH, side=TOP):
+        for i in range(len(self.inputs)):
+            if (not self.swap):
+                self.labels[i].grid(row=i, column=0)
+                self.inputs[i].grid(row=i, column=1)
+            else:
+                self.labels[i].grid(row=i, column=1)
+                self.inputs[i].grid(row=i, column=0)
+
+        Frame.pack(self, expand = expand, fill = fill, side=side)
+
+    def moveUp(self, event):
+        entry = self.focus_get()
+
+        pointer = -1
+        for i in range(len(self.inputs)):
+            if (self.inputs[i] == entry):
+                pointer = i
+                break
+        if (pointer == -1):
+            self.inputs[-1].focus_set()
+            return
+
+        if (pointer > 0):
+            pointer -= 1
+
+        self.inputs[pointer].focus_set()
+        if (isinstance(self.inputs[pointer], Calendar)):
+            self.moveUp("")
+
+    def moveDown(self, event):
+        entry = self.focus_get()
+
+        pointer = -1
+        for i in range(len(self.inputs)):
+            if (self.inputs[i] == entry):
+                pointer = i
+                break
+        if (pointer == -1):
+            self.inputs[0].focus_set()
+            return
+
+        if (pointer < len(self.inputs) - 1):
+            pointer += 1
+
+        self.inputs[pointer].focus_set()
+        if (isinstance(self.inputs[pointer], Calendar)):
+            self.moveDown("")
+
+    def clear(self):
+        for entry in self.inputs:
+            if (isinstance(entry, Entry)):
+                entry.delete(0, END)
+            elif (isinstance(entry, Combobox)):
+                entry.set("")
 
 class Rocket:
     name = ""
@@ -1086,65 +1189,47 @@ class Log:
                 logSelectFrame.pack(expand = 1, fill ="x")
                 self.createLogWindow.bind("<Return>", lambda event: self.updateLog())
 
-            createLogFrame = Frame(self.createLogWindow, height=500)
+            createLogFrame = Frame(self.createLogWindow)
 
-            logAddFrame = Frame(createLogFrame)
+            logAddFrame = InputFrame(createLogFrame)
 
-            rocketLabel = Label(logAddFrame, text="Rocket: ")
             self.rocketOptions = Combobox(logAddFrame,values=self.log.rockets, state="readonly")
+            logAddFrame.addInput(self.rocketOptions, "Rocket: ")
 
-            dateLabel = Label(logAddFrame, text="Date: ")
             self.cal = Calendar(logAddFrame)
+            logAddFrame.addInput(self.cal, "Date: ")
 
-            motorLabel = Label(logAddFrame, text="Motor: ")
             self.motorOptions = Combobox(logAddFrame, values=self.log.motors)
             self.motorOptions.bind('<KeyRelease>', self.motorSearch)
+            logAddFrame.addInput(self.motorOptions, "Motor: ")
 
-            electronicsLabel = Label(logAddFrame, text="Electronics: ")
             self.electronicsOptions = Combobox(logAddFrame, values=self.log.electronics, state="readonly")
+            logAddFrame.addInput(self.electronicsOptions, "Electronics: ")
 
-            deployModeLabel = Label(logAddFrame, text="Deploy Mode: ")
             self.deployModeOptions = Combobox(logAddFrame, values=["Motor", "Single", "Dual"], state="readonly")
+            logAddFrame.addInput(self.deployModeOptions, "Deploy Mode: ")
 
             self.electronicsFileButton = Button(logAddFrame, text="Select Flight Data File", command=self.selectFDFile)
             self.electronicsFilename = Label(logAddFrame, text="Select File")
+            logAddFrame.addInput(self.electronicsFileButton, self.electronicsFilename, swap=True)
 
-            altitudeLabel = Label(logAddFrame, text="Altitude ("+self.log.preferences.altitudeUnit+"): ")
             self.altitudeEntry = Entry(logAddFrame)
+            logAddFrame.addInput(self.altitudeEntry, "Altitude ("+self.log.preferences.altitudeUnit+"): ")
 
-            velocityLabel = Label(logAddFrame, text="Velocity ("+self.log.preferences.velocityUnit+"): ")
             self.velocityEntry = Entry(logAddFrame)
+            logAddFrame.addInput(self.velocityEntry, "Velocity ("+self.log.preferences.velocityUnit+"): ")
 
-            accelerationLabel = Label(logAddFrame, text="Acceleration ("+self.log.preferences.accelerationUnit+"): ")
             self.accelerationEntry = Entry(logAddFrame)
+            logAddFrame.addInput(self.accelerationEntry, "Acceleration ("+self.log.preferences.accelerationUnit+"): ")
 
-            successLabel = Label(logAddFrame, text="Success: ")
             self.successEntry = Combobox(logAddFrame, values=["True", "False"], state="readonly")
+            logAddFrame.addInput(self.successEntry, "Success: ")
 
             self.clearLogButton = Button(logAddFrame, text="Clear", command=self.clear)
             self.logButton = Button(logAddFrame, text="Log", command=self.createLog)
             self.updateButton = Button(logAddFrame, text="Update", command=self.updateLog)
 
-            rocketLabel.grid(row=0, column=0)
-            self.rocketOptions.grid(row=0, column=1)
-            dateLabel.grid(row=1, column=0)
-            self.cal.grid(row=1, column=1)
-            motorLabel.grid(row=2, column=0)
-            self.motorOptions.grid(row=2, column=1)
-            electronicsLabel.grid(row=3, column=0)
-            self.electronicsOptions.grid(row=3, column=1)
-            deployModeLabel.grid(row=4, column=0)
-            self.deployModeOptions.grid(row=4, column=1)
-            self.electronicsFileButton.grid(row=5, column=0)
-            self.electronicsFilename.grid(row=5, column=1)
-            altitudeLabel.grid(row=6, column=0)
-            self.altitudeEntry.grid(row=6, column=1)
-            velocityLabel.grid(row=7, column=0)
-            self.velocityEntry.grid(row=7, column=1)
-            accelerationLabel.grid(row=8, column=0)
-            self.accelerationEntry.grid(row=8, column=1)
-            successLabel.grid(row=9, column=0)
-            self.successEntry.grid(row=9, column=1)
+
             self.clearLogButton.grid(row=10, column=0)
 
             if (purpose == "create"):
@@ -1323,6 +1408,9 @@ class Log:
                 if (data.getMaxAccel() != 0 and (electronic.accelSpecific or self.accelerationEntry.get() == "")):
                     self.accelerationEntry.delete(0, END)
                     self.accelerationEntry.insert(END, Number(data.getMaxAccel(), Number.Type.ACCEL, self.log.preferences, alreadyMetric=True).getValue())
+
+
+            self.createLogWindow.focus_set()
 
         def createLog(self):
             try:
@@ -1517,31 +1605,23 @@ class Log:
                 rocketSelectFrame.pack(expand=1, fill="x")
                 self.rocketWindow.bind("<Return>", lambda event: self.updateRocket())
 
-            rocketInputsFrame = Frame(self.rocketWindow)
-            rocketNameLabel = Label(rocketInputsFrame, text="Rocket Name: ")
+            rocketInputsFrame = InputFrame(self.rocketWindow)
             self.rocketNameEntry = Entry(rocketInputsFrame)
+            rocketInputsFrame.addInput(self.rocketNameEntry, "Rocket Name: ")
 
-            rocketDiameterLabel = Label(rocketInputsFrame, text="Diameter ("+self.log.preferences.rocketDimensionUnit+"): ")
             self.rocketDiameterEntry = Entry(rocketInputsFrame)
+            rocketInputsFrame.addInput(self.rocketDiameterEntry, "Diameter ("+self.log.preferences.rocketDimensionUnit+"): ")
 
-            rocketLengthLabel = Label(rocketInputsFrame, text="Length ("+self.log.preferences.rocketDimensionUnit+"): ")
             self.rocketLengthEntry = Entry(rocketInputsFrame)
+            rocketInputsFrame.addInput(self.rocketLengthEntry, "Length ("+self.log.preferences.rocketDimensionUnit+"): ")
 
-            rocketMMTLabel = Label(rocketInputsFrame, text="MMT: ")
             self.rocketMMTOptions = Combobox(rocketInputsFrame, values=["13mm", "18mm", "24mm", "29mm", "38mm", "54mm", "75mm", "98mm"])
+            rocketInputsFrame.addInput(self.rocketMMTOptions, "MMT: ")
 
-            rocketClearButton = Button(rocketInputsFrame, text="Clear", command=self.clearRocketEntries)
+            rocketClearButton = Button(rocketInputsFrame, text="Clear", command=rocketInputsFrame.clear)
             rocketCreateButton = Button(rocketInputsFrame, text="Add", command=self.createRocket)
             rocketUpdateButton = Button(rocketInputsFrame, text="Update", command=self.updateRocket)
 
-            rocketNameLabel.grid(row=0, column=0)
-            self.rocketNameEntry.grid(row=0, column=1)
-            rocketDiameterLabel.grid(row=1, column=0)
-            self.rocketDiameterEntry.grid(row=1, column=1)
-            rocketLengthLabel.grid(row=2, column=0)
-            self.rocketLengthEntry.grid(row=2, column=1)
-            rocketMMTLabel.grid(row=3, column=0)
-            self.rocketMMTOptions.grid(row=3, column=1)
             rocketClearButton.grid(row=4, column=0)
             if (purpose == "create"):
                 rocketCreateButton.grid(row=4, column=1)
@@ -1550,6 +1630,7 @@ class Log:
                 self.fillInOldInfo("")
 
             rocketInputsFrame.pack(expand=1, fill="both")
+
 
         def fillInOldInfo(self, event):
             self.currRocket = self.log.getRocket(self.rocketSelectComboBox.get())
@@ -1674,33 +1755,29 @@ class Log:
                 electronicSelectFrame.pack(expand=1, fill="x")
                 self.electronicsWindow.bind("<Return>", lambda event: self.updateElectronic())
 
-            electronicInfoFrame = Frame(self.electronicsWindow)
-            electronicsNameLabel = Label(electronicInfoFrame, text="Name: ")
+            electronicInfoFrame = InputFrame(self.electronicsWindow)
             self.electronicsNameEntry = Entry(electronicInfoFrame)
-            electronicsManufacturerLabel = Label(electronicInfoFrame, text="Manufacturer: ")
+            electronicInfoFrame.addInput(self.electronicsNameEntry, "Name: ")
+
             self.electronicsManufacturerEntry = Entry(electronicInfoFrame)
-            electronicsAltSpecificLabel = Label(electronicInfoFrame, text="Is Altitude Specific?: ")
+            electronicInfoFrame.addInput(self.electronicsManufacturerEntry, "Manufacturer: ")
+
             self.electronicsAltSpecificEntry = Combobox(electronicInfoFrame, values=["Yes", "No"], state="readonly")
-            electronicsVeloSpecificLabel = Label(electronicInfoFrame, text="Is Velocity Specific?: ")
+            electronicInfoFrame.addInput(self.electronicsAltSpecificEntry, "Is Altitude Specific?: ")
+
             self.electronicsVeloSpecificEntry = Combobox(electronicInfoFrame, values=["Yes", "No"], state="readonly")
-            electronicsAccelSpecificLabel = Label(electronicInfoFrame, text="Is Acceleration Specific?: ")
+            electronicInfoFrame.addInput(self.electronicsVeloSpecificEntry, "Is Velocity Specific?: ")
+
             self.electronicsAccelSpecificEntry = Combobox(electronicInfoFrame, values=["Yes", "No"], state="readonly")
+            electronicInfoFrame.addInput(self.electronicsAccelSpecificEntry, "Is Acceleration Specific?: ")
+
             electronicsClearButton = Button(electronicInfoFrame, text="Clear", command=self.clearElectronicEntries)
             if (purpose == "create"):
                 createElectronicButton = Button(electronicInfoFrame, text="Create", command=self.createElectronic)
             elif (purpose == "update"):
                 updateElectronicButton = Button(electronicInfoFrame, text="Update", command=self.updateElectronic)
 
-            electronicsNameLabel.grid(row=0, column=0)
-            self.electronicsNameEntry.grid(row=0, column=1)
-            electronicsManufacturerLabel.grid(row=1, column=0)
-            self.electronicsManufacturerEntry.grid(row=1, column=1)
-            electronicsAltSpecificLabel.grid(row=2, column=0)
-            self.electronicsAltSpecificEntry.grid(row=2, column=1)
-            electronicsVeloSpecificLabel.grid(row=3, column=0)
-            self.electronicsVeloSpecificEntry.grid(row=3, column=1)
-            electronicsAccelSpecificLabel.grid(row=4, column=0)
-            self.electronicsAccelSpecificEntry.grid(row=4, column=1)
+
             electronicsClearButton.grid(row=5, column=0)
             if (purpose == "create"):
                 createElectronicButton.grid(row=5, column=1)
@@ -1797,6 +1874,7 @@ class Log:
     Data Viewer
     '''
     def openDataViewer(self):
+        global windowClosed
         if (tabControl.index("current") != 0):
             messagebox.showerror("Error!", "Can only view flight data!")
             return
@@ -1813,49 +1891,68 @@ class Log:
         data = DataReader.readFile(currLog.FDFilename)
 
         dataViewerWindow = Popup(window, title="Data Viewer")
+
         windowOpen = {"Open": True}
         dataViewerWindow.protocol("WM_DELETE_WINDOW", lambda: [dataViewerWindow.destroy(), windowOpen.update({"Open": False})])
         dataViewerWindow.bind("<Escape>", lambda event: [dataViewerWindow.destroy(), windowOpen.update({"Open": False})])
 
+        checklist = CheckList(dataViewerWindow)
+        checklist.addBoxes(data.getDataArrayOptions())
+        checklist.pack()
 
-        dataViewerWindowSelect = Combobox(dataViewerWindow, values=data.getDataArrayOptions(), state="readonly")
-        dataViewerWindowSelect.current(0)
-        dataViewerWindowSelect.pack()
 
 
-        fig = Figure(figsize=(5, 5), dpi=100)
-        plot1 = fig.add_subplot()
+        fig = Figure(figsize=(8, 5), dpi=100)
         canvas = tkagg.FigureCanvasTkAgg(fig, master=dataViewerWindow)
         toolbar = tkagg.NavigationToolbar2Tk(canvas, dataViewerWindow)
 
-        prevSelection = ""
-        while windowOpen["Open"]:
-            if (dataViewerWindowSelect.get() != prevSelection or self.tkinterRefresh == True):
-                prevSelection = dataViewerWindowSelect.get()
-                plot1.clear()
+        prevSelection = []
+        while windowOpen["Open"] and not windowClosed:
+            selectedGraphs = checklist.getChecked()
+            if (selectedGraphs != prevSelection):
 
-                dataArr = data.getArray(prevSelection)
-                if (prevSelection == "Altitude"):
-                    type = Number.Type.ALT
-                    plot1.set_ylabel(prevSelection + " (" + self.preferences.altitudeUnit + ")")
-                elif (prevSelection == "Velocity"):
-                    type = Number.Type.VELO
-                    plot1.set_ylabel(prevSelection + " (" + self.preferences.velocityUnit + ")")
-                elif (prevSelection == "Acceleration"):
-                    type = Number.Type.ACCEL
-                    plot1.set_ylabel(prevSelection + " (" + self.preferences.accelerationUnit + ")")
+                prevSelection = selectedGraphs
+                fig.clear()
+                plot = fig.add_subplot()
+                index = 0
+                for graph in selectedGraphs:
+                    if (index == 0):
+                        twin = plot
+                    else:
+                        twin = plot.twinx()
+                        if (index > 1):
+                            twin.spines.right.set_position(("axes", 1.4*(index-1)))
+                    index += 1
 
-                coef = Number(1, type, self.preferences)
+                    dataArr = data.getArray(graph)
+                    color = "-b"
+                    if (graph == "Altitude"):
+                        type = Number.Type.ALT
+                        twin.set_ylabel(graph + " (" + self.preferences.altitudeUnit + ")")
+                        color = "-b"
+                    elif (graph == "Velocity"):
+                        type = Number.Type.VELO
+                        twin.set_ylabel(graph + " (" + self.preferences.velocityUnit + ")")
+                        color = "-g"
+                    elif (graph == "Acceleration"):
+                        type = Number.Type.ACCEL
+                        twin.set_ylabel(graph + " (" + self.preferences.accelerationUnit + ")")
+                        color = "-r"
 
-                for i in range(len(dataArr)):
-                    dataArr[i] =  float(dataArr[i])/coef.value
+                    coef = Number(1, type, self.preferences)
+
+                    for i in range(len(dataArr)):
+                        dataArr[i] =  float(dataArr[i])/coef.value
 
 
-                # plotting the graph
-                plot1.plot(data.getTimeArray(), dataArr)
-                plot1.set_xlabel("Time (s)")
-                plot1.grid(True)
+                    # plotting the graph
+                    twin.plot(data.getTimeArray(), dataArr, color)
+                    twin.set_ylim(1.2*min(dataArr), 1.2*max(dataArr))
 
+                    plot.grid(True)
+
+                plot.set_xlabel("Time (s)")
+                fig.legend(selectedGraphs)
                 fig.tight_layout()
 
 
@@ -2083,6 +2180,40 @@ class Log:
 
         self.saveJSON()
 
+    def cleanPicturesFiles(self):
+        warning = messagebox.askokcancel("Warning!",
+                                         "WARNING! This will damage photo references in other logs!")
+        if (not warning):
+            return
+
+        # find used filenames and their corresponding flight
+        usedFiles = []
+        rockets = []
+        for rocket in self.rockets:
+            if (rocket.picture != ""):
+                usedFiles.append(rocket.picture.split("/")[-1])
+                rockets.append(rocket)
+
+        # remove unused files
+        for file in os.listdir("data/rocketPictures/"):
+            if (file not in usedFiles):
+                os.remove("data/rocketPictures/" + file)
+
+        # rename files
+        for rocket in zip(rockets, usedFiles):
+            index = 0
+            newName = "data/rocketPictures/" + str(index) + "." + rocket[1].split(".")[-1]
+            while (os.path.exists(newName)):
+                if (newName == "data/rocketPictures/" + rocket[1]):
+                    break
+                index += 1
+                newName = "data/rocketPictures/" + str(index) + "." + rocket[1].split(".")[-1]
+
+            if (newName != "data/rocketPictures/" + rocket[1]):
+                os.rename("data/rocketPictures/" + rocket[1], newName)
+                rocket[0].picture = newName
+
+        self.saveJSON()
     '''
     Tkinter Keybind Command handling
     '''
@@ -2917,6 +3048,7 @@ menuFile.add_command(label="Import", command=log.importFile)
 menuFile.add_separator()
 menuFile.add_command(label="Import Motor", command=log.importMotor)
 menuFile.add_command(label="Clean Flight Data Folder", command=log.cleanFlightDataFiles)
+menuFile.add_command(label="Clean Rocket Pictures Folder", command=log.cleanPicturesFiles)
 menuFile.add_separator()
 menuFile.add_command(label="Quit", command=closeWindow)
 
@@ -2965,14 +3097,6 @@ menuHelp.add_command(label="Contact Support", command=helper.contactSupport)
 menuHelp.add_command(label="Report Bug", command=helper.reportBug)
 menuHelp.add_separator()
 menuHelp.add_command(label="Check for Updates")
-
-# with open("data/helpDescriptions.json", "r") as jsonFile:
-#     helpData = json.load(jsonFile)
-#
-# for item in helpData.get("Descriptions"):
-#     command = menubar.getCommand(item.get("Name"), True)
-#     if (command != None):
-#         command.description = item.get("Description")
 
 # tab creation
 tabControl = Notebook(window)
@@ -3335,8 +3459,6 @@ while True:
                 rocketButtonsFrame.pack(expand = 1, fill ="x")
             else:
                 rocketImageLabel.pack_forget()
-
-
     else:
         if (not rocketForgot or log.tkinterRefresh):
             prevRocket = ""
